@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 28
@@ -6,10 +7,10 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
 
 
     }
@@ -23,12 +24,24 @@ android {
 
 }
 
+publish {
+    userOrg = 'ahxiangdemm'        //bintray.com用户名
+    repoName = 'SNT'
+    groupId = 'com.snt.lib'    //jcenter上的路径
+    artifactId = 'snt_image_browser'   //项目名称
+    publishVersion = '1.0.1'//版本号
+    desc = '网络图片浏览器'//描述，自由填写
+    website = 'https://github.com/ahxiangkui/SNTImageBrowser' // 网址，自由填写
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.facebook.fresco:fresco:1.5.0'
-    implementation 'me.relex:photodraweeview:1.1.3'
+    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
 }

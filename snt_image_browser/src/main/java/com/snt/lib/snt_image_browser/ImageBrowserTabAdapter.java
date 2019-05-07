@@ -18,11 +18,13 @@ public class ImageBrowserTabAdapter extends FragmentStatePagerAdapter {
 
     private List<View> tabViews = new ArrayList<>();
     private List<ImageItem> items;
+    private ImageFragmentCallback callback;
 
-    public ImageBrowserTabAdapter(FragmentManager fm, Context context, List<ImageItem> items) {
+    public ImageBrowserTabAdapter(FragmentManager fm, Context context, List<ImageItem> items, ImageFragmentCallback callback) {
         super(fm);
         this.context = context;
         this.items = items;
+        this.callback = callback;
     }
 
     public List<View> getTabViews() {
@@ -32,7 +34,7 @@ public class ImageBrowserTabAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        return ImageBrowserFragment.newInstance(items.get(position));
+        return ImageBrowserFragment.newInstance(items.get(position), callback);
 
     }
 
