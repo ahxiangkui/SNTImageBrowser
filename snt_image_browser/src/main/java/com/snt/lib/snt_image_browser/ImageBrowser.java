@@ -13,6 +13,8 @@ public class ImageBrowser {
     private Drawable drawable;
     private String imgUrl;
     private View transitionV;
+    private String[] urls;
+    private int position;
 
     public ImageBrowser(Activity mActivity) {
         this.mActivity = mActivity;
@@ -32,6 +34,16 @@ public class ImageBrowser {
         return this;
     }
 
+    public ImageBrowser urls(String[] urls) {
+        this.urls = urls;
+        return this;
+    }
+
+    public ImageBrowser position(int position) {
+        this.position = position;
+        return this;
+    }
+
     public ImageBrowser transitionView(View transitionV) {
         this.transitionV = transitionV;
         return this;
@@ -39,24 +51,41 @@ public class ImageBrowser {
 
     public void show(){
 
-        ImageBrowserActivity.defaultDrawable = drawable;
+//        ImageBrowserActivity.defaultDrawable = drawable;
         ActivityOptions options = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP && transitionV != null) {
             options = ActivityOptions.makeSceneTransitionAnimation(mActivity, transitionV, "image");
 
         }
-        Intent intent = new Intent(mActivity, ImageBrowserActivity.class);
-        if (!TextUtils.isEmpty(imgUrl)){
-            intent.putExtra("url", imgUrl);
-        }
-        intent.putExtra("fromBuilder", true);
-        if (options != null){
+        if (urls != null){
 
-            mActivity.startActivity(intent, options.toBundle());
+            Intent intent = new Intent(mActivity, ImagesBrowserActivity.class);
+            intent.putExtra("urls", urls);
+            intent.putExtra("index", position);
+            intent.putExtra("fromBuilder", true);
+            if (options != null){
+
+                mActivity.startActivity(intent, options.toBundle());
+            }else {
+
+                mActivity.startActivity(intent);
+            }
         }else {
 
-            mActivity.startActivity(intent);
+            Intent intent = new Intent(mActivity, ImageBrowserActivity.class);
+            if (!TextUtils.isEmpty(imgUrl)){
+                intent.putExtra("url", imgUrl);
+            }
+            intent.putExtra("fromBuilder", true);
+            if (options != null){
+
+                mActivity.startActivity(intent, options.toBundle());
+            }else {
+
+                mActivity.startActivity(intent);
+            }
         }
+
     }
 
 }

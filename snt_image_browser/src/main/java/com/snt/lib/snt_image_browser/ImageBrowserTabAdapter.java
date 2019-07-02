@@ -17,13 +17,13 @@ public class ImageBrowserTabAdapter extends FragmentStatePagerAdapter {
     private Context context;
 
     private List<View> tabViews = new ArrayList<>();
-    private List<ImageItem> items;
+    private String[] imgs;
     private ImageFragmentCallback callback;
 
-    public ImageBrowserTabAdapter(FragmentManager fm, Context context, List<ImageItem> items, ImageFragmentCallback callback) {
+    public ImageBrowserTabAdapter(FragmentManager fm, Context context, String[] imgs, ImageFragmentCallback callback) {
         super(fm);
         this.context = context;
-        this.items = items;
+        this.imgs = imgs;
         this.callback = callback;
     }
 
@@ -34,20 +34,20 @@ public class ImageBrowserTabAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        return ImageBrowserFragment.newInstance(items.get(position), callback);
+        return ImageBrowserFragment.newInstance(imgs[position], callback);
 
     }
 
 
     @Override
     public int getCount() {
-        return items.size();
+        return imgs.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
 
-        return items.get(position).getTitle();
+        return "";
     }
 
 }

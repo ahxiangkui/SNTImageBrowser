@@ -1,33 +1,34 @@
 package com.snt.lib.snt_image_browser;
 
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.piasy.biv.indicator.progresspie.ProgressPieIndicator;
+import com.github.piasy.biv.view.BigImageView;
+import com.github.piasy.biv.view.GlideImageViewFactory;
 
 
 public class ImageBrowserFragment extends Fragment {
 
-    private ImageItem imageItem;
+    private String picUrl;
     private ImageFragmentCallback callback;
+    private View fragmentV;
 
-    public void setImageItem(ImageItem imageItem) {
-        this.imageItem = imageItem;
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 
     public void setCallback(ImageFragmentCallback callback) {
         this.callback = callback;
     }
 
-    public static ImageBrowserFragment newInstance(ImageItem imageItem, ImageFragmentCallback callback) {
+    public static ImageBrowserFragment newInstance(String picUrl, ImageFragmentCallback callback) {
         ImageBrowserFragment fragment = new ImageBrowserFragment();
-        fragment.setImageItem(imageItem);
+        fragment.setPicUrl(picUrl);
         fragment.setCallback(callback);
         return fragment;
     }
@@ -42,21 +43,27 @@ public class ImageBrowserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View fragmentV = inflater.inflate(R.layout.fragment_image_browser, container, false);
+        if (fragmentV == null){
 
-//        PhotoDraweeView photoDraweeView = fragmentV.findViewById(R.id.photo_drawee_view);
-//        if (imageItem != null && !TextUtils.isEmpty(imageItem.getUrl())){
-//            photoDraweeView.setPhotoUri(Uri.parse(imageItem.getUrl()));
-//        }
-//        photoDraweeView.setOnViewTapListener(new OnViewTapListener() {
-//            @Override
-//            public void onViewTap(View view, float x, float y) {
-//                if (callback != null){
-//                    callback.imageItemClick();
-//                }
-//            }
-//        });
+            fragmentV = inflater.inflate(R.layout.fragment_image_browser, container, false);
+
+            BigImageView itemImage = fragmentV.findViewById(R.id.itemImage);
+            itemImage.setProgressIndicator(new ProgressPieIndicator());
+            itemImage.setTapToRetry(true);
+            itemImage.setImageViewFactory(new GlideImageViewFactory());
+            itemImage.showImage(Uri.parse(picUrl));
+            itemImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (callback != null){
+                        callback.imageItemClick();
+                    }
+                }
+            });
+        }
+
         return fragmentV;
     }
+
 
 }
