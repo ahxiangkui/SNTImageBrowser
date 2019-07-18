@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 5
-        versionName "1.0.5"
+        versionCode 6
+        versionName "1.0.6"
 
 
     }
@@ -30,7 +30,7 @@ publish {
     repoName = 'SNT'
     groupId = 'com.snt.lib'    //jcenter上的路径
     artifactId = 'snt_image_browser'   //项目名称
-    publishVersion = '1.0.5'//版本号
+    publishVersion = '1.0.6'//版本号
     desc = '网络图片浏览器'//描述，自由填写
     website = 'https://github.com/ahxiangkui/SNTImageBrowser' // 网址，自由填写
 }

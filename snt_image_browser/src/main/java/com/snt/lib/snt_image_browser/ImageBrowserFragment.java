@@ -11,6 +11,8 @@ import com.github.piasy.biv.indicator.progresspie.ProgressPieIndicator;
 import com.github.piasy.biv.view.BigImageView;
 import com.github.piasy.biv.view.GlideImageViewFactory;
 
+import java.io.File;
+
 
 public class ImageBrowserFragment extends Fragment {
 
@@ -51,7 +53,7 @@ public class ImageBrowserFragment extends Fragment {
             itemImage.setProgressIndicator(new ProgressPieIndicator());
             itemImage.setTapToRetry(true);
             itemImage.setImageViewFactory(new GlideImageViewFactory());
-            itemImage.showImage(Uri.parse(picUrl));
+            itemImage.showImage(picUrl.startsWith("http") ? Uri.parse(picUrl) : Uri.fromFile(new File(picUrl)));
             itemImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

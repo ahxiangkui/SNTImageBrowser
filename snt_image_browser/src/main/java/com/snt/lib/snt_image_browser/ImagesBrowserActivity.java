@@ -3,6 +3,7 @@ package com.snt.lib.snt_image_browser;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ public class ImagesBrowserActivity extends AppCompatActivity implements ImageFra
         if (urls.length > 1){
 
             indicatorTV.setText((position+1)+"/"+urls.length);
+        }else {
+            indicatorTV.setVisibility(View.GONE);
         }
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
