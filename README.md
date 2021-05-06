@@ -4,7 +4,7 @@
 
 ```gradle
 dependencies {
-    implementation 'com.snt.lib:snt_image_browser:1.0.5'
+    implementation 'com.snt.lib:snt_image_browser:1.0.6'
 }
 ```
 ## 单图
